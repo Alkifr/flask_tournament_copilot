@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Room: {{ room.category }}</h2>
+<form method="POST">
+    <label for="bet_amount">Bet Amount:</label>
+    <input type="number" name="bet_amount" required>
+    <button type="submit">Place Bet</button>
+</form>
+
+<h3>Bets</h3>
+<table>
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Bet Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for bet in bets %}
+        <tr>
+            <td>{{ bet.user_id }}</td>
+            <td>{{ bet.amount }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{{ url_for('auth.leaderboard', room_id=room.id) }}">View Leaderboard</a>
+{% endblock %}

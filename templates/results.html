@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Results</h2>
+<ul>
+    {% for result in results['response'] %}
+    <li>{{ result['teams']['home']['name'] }} {{ result['goals']['home'] }} - {{ result['goals']['away'] }} {{ result['teams']['away']['name'] }} - {{ result['fixture']['date'] }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

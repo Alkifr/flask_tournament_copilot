@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Fixtures</h2>
+<form method="GET" action="{{ url_for('fixtures') }}">
+    <label for="competition">Select Competition:</label>
+    <select name="competition" id="competition">
+        <option value="euro_2024">Euro 2024</option>
+        <option value="champions_league_2024_2025">Champions League 2024/2025</option>
+    </select>
+    <button type="submit">Show Fixtures</button>
+</form>
+
+<ul>
+    {% for fixture in fixtures['response'] %}
+    <li>{{ fixture['teams']['home']['name'] }} vs {{ fixture['teams']['away']['name'] }} - {{ fixture['fixture']['date'] }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

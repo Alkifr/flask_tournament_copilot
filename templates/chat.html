@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Chat Room: {{ room.category }}</h2>
+<div id="chat">
+    <div id="messages"></div>
+    <input id="message" type="text" placeholder="Type your message here...">
+    <button onclick="sendMessage()">Send</button>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js"></script>
+<script src="{{ url_for('static', filename='chat.js') }}"></script>
+<script>
+    var socket = io();
+    var room = "{{ room.id }}";
+    var username = "{{ current_user.email }}";
+
+    socket.emit('join', {'room': room, 'username': username});
+
+    socket.on('message', function(data) {
+        var messages = document.getElementById('messages');
+        var message = document.createElement('div');
+        message.textContent = data;
+        messages.appendChild(message);
+    });
+
+    function sendMessage() {
+        var messageInput = document.getElementById('message');
+        var message = messageInput.value;
+        socket.emit('message', {'room': room, 'username': username, 'message': message});
+        messageInput.value = '';
+    }
+</script>
+{% endblock %}

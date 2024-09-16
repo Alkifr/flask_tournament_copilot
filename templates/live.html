@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Live Matches</h2>
+<ul>
+    {% for match in live_status['response'] %}
+    <li>{{ match['teams']['home']['name'] }} vs {{ match['teams']['away']['name'] }} - {{ match['fixture']['status']['elapsed'] }}'</li>
+    {% endfor %}
+</ul>
+{% endblock %}

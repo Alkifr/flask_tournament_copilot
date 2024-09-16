@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Leaderboard</h2>
+<table>
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Total Points</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user_id, points in leaderboard %}
+        <tr>
+            <td>{{ user_id }}</td>
+            <td>{{ points }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

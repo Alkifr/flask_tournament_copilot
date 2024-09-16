@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Notifications</h2>
+<div id="notifications"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js"></script>
+<script>
+    var socket = io();
+    var room = "{{ room.id }}";
+    var username = "{{ current_user.email }}";
+
+    socket.emit('join', {'room': room, 'username': username});
+
+    socket.on('message', function(data) {
+        var notifications = document.getElementById('notifications');
+        var notification = document.createElement('div');
+        notification.textContent = data;
+        notifications.appendChild(notification);
+    });
+
+    function sendNotification(message) {
+        socket.emit('send_notification', {'room': room, 'message': message});
+    }
+</script>
+{% endblock %}
